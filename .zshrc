@@ -35,8 +35,7 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile
 
-PWD="/media/backup/kunal/graphics"
-export PWD
+
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 TZ="America/New_York"
 HISTFILE=$HOME/.zhistory
@@ -195,29 +194,3 @@ zstyle ':completion:*:ssh:*' tag-order \
 zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
-export GOOS=linux
-export GOARCH=x86
-export GOROOT=/home/kunal/go
-export GOBIN=$GOROOT/bin
-export PATH=$PATH:$GOROOT
-#-----the GIT part-----
-autoload -Uz vcs_info
-
-zstyle ':vcs_info:*' stagedstr '%F{28}●'
-zstyle ':vcs_info:*' unstagedstr '%F{11}●'
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
-zstyle ':vcs_info:*' enable git svn
-precmd () {
-        if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-                zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{blue}]'
-        } else {
-        zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{red}●%F{blue}]'
-}
-
-    vcs_info
-}
-setopt prompt_subst
-PROMPT='%F{blue}%n@%m %c${vcs_info_msg_0_}%F{blue} %(?/%F{blue}/%F{red})%% %{$reset_color%}'
-#-----end of the git part-----
-                                        
